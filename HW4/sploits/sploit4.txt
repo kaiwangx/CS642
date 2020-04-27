@@ -1,0 +1,20 @@
+Use this file to explain how your sploit4 works.
+
+     The weakness of this target is that it uses printf function series without specifying the type. It is a typical format 
+string vulnerability. 
+     Let's start with the buffer layout: 
+	<ADDR, DUMMY><ADDR, DUMMY><ADDR, DUMMY><ADDR, DUMMY><STACKPOP><WRITE-CODE><NOPS>
+<SHELLCODE>
+     <ADDR, DUMMY> pair: addr is the address we'd like to overwrite, like the paper "Exploiting Format String Vulnerabilities" 
+said, we can only write one bytes each time. So combining all four ADDR, we will get the actual 4 bytes address we want 
+to overwrite. In other words, we split the 4 bytes address to four address and change 1 bytes each time. Here the address
+we want to overwrite is the return address, (or %ebp + 4), so after finding ebp in gdb, we can get this address. The dummy
+values I choose here is \x01\x01\x01\x01, since late we will use %u%n, we need a dumy value between address to make sure
+no address here will be skipped.
+    STACKPOP: is %08x, this will increase the internal pointer 4 bytes in printf function, we want this pointer point to the first ADDR, 
+or the beginning of the buffer. Try serveral times we can know how many bytes we need to skip.
+    WRITE-CODE: in form %xu%n *4, where x is a integer. we need four of this since we need to write to four different address, 1 
+bytes each time. Details calculation can be found in the paper. 
+     And we want to insert some NOP before SHELLCODE to increase flexibility. Combining all members, we get the buffer.
+     Note: the return address here is not located in the target frame but in the original buffer frame. The reason of this is by doing
+%xu%n, lots of \x20 will be written in to the target frame and the shell code might be overwritten.

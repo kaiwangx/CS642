@@ -1,0 +1,13 @@
+Use this file to explain how your sploit2 works.
+
+    The vulnerability of this target is we are able to change the last bit of the sfp by using the buffer overflow.
+    The buffer size is 160 bytes, in order to perform buffer overflow, our buffer should be 161 bytes, the composition will 
+be FFFFRRRRNNNNNNNNNNNNSSSSSSSX, where F stands for sfp, R stands for return address, here we set return address
+to the first N so that our shellcode can run, N stands for NOP, S stands for shellcode, and X stands for the last bit of sfp we
+want to modified, here we modified it to the first F.
+    Thus, the flow of the program should be X has been modified into the sfp, and the sfp will point to the first F. This makes
+the ebp moves to the address we want, instead of previous one, here ebp moves to the first F. Then it becomes simple, 
+the return address is next to sfp and the control flow will be directed to NOP, and then our shellcode.
+    Implementation is similar to sploit1, we first figure out the ebp and esp of the bar frame inside target and do some 
+calculation to found out the exact address of the begining of the buffer. Finally, we set up our buffer as said above, and 
+we are done.

@@ -1,0 +1,14 @@
+Use this file to explain how your sploit3 works.
+
+    Here, notice that in the main function of the target, it has "count = (int)strtoul(argv[1], &in, 10);", witch might have the integer
+ overflow problem. The program ask us to input the size of the array, but we can instead, input a large number (here we choose 
+2147483810) to make it seems like a negative number when it compares with MAX_WIDGETS, but after, in the memcpy, it overflows 
+again so that we get the real size of our buffer. In other word, we need a number X big enough so it will be interpret as a negative
+number and 16 * X will overflow and left the real size of buffer, which is 2592. Here we choose X = 2147483810
+    We choose the buffer size of 2592, which is enough to overwrite the eip. And the composition of the buffer is similar to sploit1,
+besides we have more NOP, NNNNNNNNNNSSSSSSSNNNNRRRR, where N is NOP, S is shellcode, R is modified eip that points to 
+the first N. 
+    By using the same technique, we get the ebp and esp of foo frame and by doing some calculation, we get the exact address of 
+the beginning of the buffer. So no need to guess, we have the exact address and we can fill it in R part. (Here is another trick, the 
+count takes 11 bytes, so the calculation here is a little different). By filling out the R, we can choose anywhere between N and R to 
+place the shell code. Then, we are done.

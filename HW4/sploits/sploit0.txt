@@ -1,0 +1,10 @@
+Use this file to explain how your sploit0 works.
+
+     Since check_fail() in target used strcpy function, we can apply buffer overflow technique here to change the 
+return address to the "else" statement so that the grade will be changed to A. 
+     Notice that the buffer size is 20 byte, followed by old frame number and return address, so we are trying to
+write 28 bytes in total to overwrite the return address.
+     By using gdb, we get the address we want to return, which will change the grade, but at the same time, we 
+should keep the old frame number unchanged. We can get this number by knowing %ebp of the new frame.
+     Then, the final buffer looks like "SSSS SSSS SSSS SSSS SSSS FFFF SSSS", where S stands for the return addr
+and F stands for the old frame number.

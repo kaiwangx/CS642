@@ -1,0 +1,64 @@
+# Part A:
+
+## Recovered password
+11235813
+
+## Pseudocode for attack
+
+notFound = 1
+digit = 1
+while notFound:
+    for x in range(0, pow(10, digit)):
+        password = str(x)
+        if x < pow(10, digit - 1):
+            password = password.rjust(digit, '0')
+        if hashlib.sha256(("bucky," + password + ",20200128").encode()).hexdigest() == \
+                "61ef437ca1493baf5ce815a8ca13ec1fba31645f7d85edebac7c60e0aa98b5c6":
+            print(password)
+            notFound = 0
+            break
+    digit += 1
+
+## Worst case running time
+Let N be the number of maximum digit, the total number of passwords we are going to try = 10^1 + 10^2 + ... + 10^N) = O(10^N), assuming SHA256 has O(1) time complexity
+
+## Discussion merits of current proposal
+Overall, using SHA256 to hash "username,password,salt" is a good idea. The first reason is SHA256 is a one-way function and brute forcing the password has a time complexity of O(10^N).
+If N is large enough, with time complexity, the password is hard to crack.
+
+## Suggestions for improvement
+It is unsafe since the password contains only numbers and the length is only 8 digit, which can be cracked within a minute by the pseudo code above. If the password contains 
+a combination of letters, numbers and symbols and the length of the password is long enough, cracking the password will be extremely difficult since the time complexity will be, 
+approximatly O(100^N) and N is big enough. Another way to make attack intractable is using SHA256 multiple times with salt so that the time of guessing one password will further increase
+
+
+# Part B:
+
+## Discussion of the current scheme
+Using CBC mode and initialization vector is definitely a plus since CBC avoids having identical blocks of ciphertext for the same plaintext.
+
+## Suggestions for improving the scheme
+1. one reason we can modify the text here is we know the iv, if iv is encrypted, it is likely to improve the security here
+2. another reason we pass the integrity is we can generate the tag and user can not tell the difference. We can improve this by using encrypt then MAC so that the user will notice the message 
+has been changed.
+
+# Extra Credit:
+
+## Recovered password
+Newm@dis0n
+
+## Correct pseudocode
+f = open("passwords.txt", "r", errors='ignore')
+notFound = 1
+while notFound:
+    n = f.readline().rstrip()
+    if len(n) < 6:
+        continue
+    m = "bucky," + n + ",8934029034"
+    h = m.encode()
+    for i in range(256):
+        h = hashlib.sha256(h).digest()
+    if h.hex() == "1b2ebfab6e70dcb13f3ff4750d065bab8474dac4dc611df339446071ae3e7977":
+        notFound = 0
+        print(m)
+

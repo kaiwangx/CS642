@@ -1,0 +1,57 @@
+# Your Net ID and your name - there is no special format for this. (This homework ought to be done individually)
+Net ID: kwang339
+Name: Kai Wang
+
+# Trace 1: HTTP
+## Give three websites (domain Nname and IP addresses) visited from source IP address `192.168.0.100`
+www.amazon.com   205.251.242.54
+www.baidu.com   180.76.3.151
+www.bing.com   69.16.143.26
+
+## Give three search queries and the domain of the site for each query made from source IP address `192.168.0.100`
+www.bing.com   search query: madison map
+www.bing.com   search query: chicago metro
+www.amazon.com   search query: adventures in Stochastic Processes
+
+# Trace 2: FTP
+## What is the user name and password used to connect to the FTP server?
+user name: shiningmoon
+password: public 
+
+## List any (and all) files that were downloaded.
+dragon.zip
+ARP.java
+L2Switch.java
+phase1.html
+
+## List the full path for two files (in different directories) on the FTP server that were NOT downloaded.
+/jerrygen.zip
+/phase1/StoreForwardingDatalink.java
+
+# Trace 3: Traceroute
+## Briefly describe how the traceroute tool works including which network protocols are in use.
+traceroute can trace the path of a packet from the source machine to an Internet host by sending UDP packets with different TTL value to the destination and making use of ICMP's message.
+
+## Give the source IP address that issued the traceroute command and the destination IP address.
+src: 192.168.0.100
+dest: 74.125.225.46
+
+## List the IP addresses on the route between source and destination.
+192.168.0.1, 10.131.180.1, 96.34.20.20, 96.34.17.95, 96.34.17.112, 96.34.16.112, 96.34.16.77, 96.34.2.4, 96.34.0.7, 96.34.0.9, 96.34.3.9, 96034.152.30, 209.85.254.120, 209.85.250.28
+
+# Trace 4: POP
+## What is the POP username and password?
+username: cs155@dummymail.com
+password: whitehat
+
+## How many emails are in the user's mailbox?
+5
+
+## Give the contents of from, to, subject, and date for one email message.
+From: harinym@stanford.edu
+To: cs155@dummymail.com
+Subject: test message 
+Date: Fri, 23 Apr 2010 
+
+## What email client (application) and operating system is this person using to send and receive email?
+Thunderbird, Windows

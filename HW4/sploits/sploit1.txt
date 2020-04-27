@@ -1,0 +1,10 @@
+Use this file to explain how your sploit1 works.
+
+    This target is a simple example of buffer overflow. It uses strcpy which don't have bound check so that we can insert 
+shellcode and overwrite the return address to the head of the buffer, similar to sploit0.
+    Since the buffer size is 160, we need 168 (we need to skip sfp) bytes to overwrite the return address. The composition of
+buffer is like NNNNNNNNNNSSSSSSSSSSSSRRRR, where N stands for NOP, S stands for shell codes, and R stands for the 
+beginning address of the buffer, here is the first N.
+    Instead of guessing, we can figure out the exact address. Like sploit0, by using gdb, we are able to figure out the ebp
+esp by using asm helper function. Then it is not hard to find out the exact address, we copied that address to R and we
+are done.
