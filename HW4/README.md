@@ -1,5 +1,4 @@
 sploit 0:
-
      Since check_fail() in target used strcpy function, we can apply buffer overflow technique here to change the 
 return address to the "else" statement so that the grade will be changed to A. 
      Notice that the buffer size is 20 byte, followed by old frame number and return address, so we are trying to
@@ -11,7 +10,6 @@ and F stands for the old frame number.
 
 
 sploit 1:
-
     This target is a simple example of buffer overflow. It uses strcpy which don't have bound check so that we can insert 
 shellcode and overwrite the return address to the head of the buffer, similar to sploit0.
     Since the buffer size is 160, we need 168 (we need to skip sfp) bytes to overwrite the return address. The composition of
@@ -23,7 +21,6 @@ are done.
 
 
 sploit 2:
-
     The vulnerability of this target is we are able to change the last bit of the sfp by using the buffer overflow.
     The buffer size is 160 bytes, in order to perform buffer overflow, our buffer should be 161 bytes, the composition will 
 be FFFFRRRRNNNNNNNNNNNNSSSSSSSX, where F stands for sfp, R stands for return address, here we set return address
@@ -38,7 +35,6 @@ we are done.
 
 
 sploit 3:
-
     Here, notice that in the main function of the target, it has "count = (int)strtoul(argv[1], &in, 10);", witch might have the integer
  overflow problem. The program ask us to input the size of the array, but we can instead, input a large number (here we choose 
 2147483810) to make it seems like a negative number when it compares with MAX_WIDGETS, but after, in the memcpy, it overflows 
@@ -54,7 +50,6 @@ place the shell code. Then, we are done.
 
 
 sploit 4:
-
      The weakness of this target is that it uses printf function series without specifying the type. It is a typical format 
 string vulnerability. 
      Let's start with the buffer layout: 
