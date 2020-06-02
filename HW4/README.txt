@@ -1,3 +1,5 @@
+Visit my blog https://kaiwang.co/2020/05/18/buffer-overflow-vulnerability-exploits/ for more details.
+
 sploit 0:
      Since check_fail() in target used strcpy function, we can apply buffer overflow technique here to change the 
 return address to the "else" statement so that the grade will be changed to A. 
